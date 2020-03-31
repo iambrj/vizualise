@@ -5,6 +5,8 @@
 \usepackage{hyperref}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\graphicspath{ {./assets/} }
 
 \usepackage{charter}
 
@@ -123,7 +125,11 @@ page} before proceeding further.
 We've decided to use parallel sets to answer this question - the axes will be
 parent's education, employment and educational support provided, in that
 specific order. There will also be a radio button / drop down selection for
-selecting between the parents.
+selecting between the parents. A rough sketch is as follows
+
+\begin{center}
+\includegraphics[scale=0.3]{1}
+\end{center}
 
 \subsection{Relevant binary field vs alcohol consumption}
 A few relevant binary fields we identified were relationship status, sex,
@@ -132,39 +138,68 @@ consideration, we've concluded that a pie chart will be the most effective
 visualization here. The binary field (first axis) will partition the entire data
 set into two separate sets, which will be visualized using two different colors.
 We will then use different gradients of these two colors to differentiate
-between different levels of alcohol consumption.  
+between different levels of alcohol consumption. A rough sketch is as follows
+
+\begin{center}
+\includegraphics[scale=0.3]{2}
+\end{center}
 
 \subsection{Study time vs grades}
 A contour will succinctly visualize this. Study time on X-axis and failures
 on Y-axis will be measured. Intensity of color at a point will denote number of
-students there.
+students there. A rough sketch is as follows
 
-\subsection{Ages and going out vs alcohol consumption}
+\begin{center}
+\includegraphics[scale=0.3]{3}
+\end{center}
+
+\subsection{Ages, going out vs alcohol consumption}
 Scrutinizing led us to deduce that a bubble chart is well suited to visualizing
 this question. The X-axis will measure age, Y-axis degree of going out with
 friends and size of circle amount of alcohol consumed. Furthermore, we plan to
 distinguish weekend and weekday alcohol consumption by either using bubbles of
 different colors (and plot them in the same graph) or providing a button for
-selection (and plot them separately).
+selection (and plot them separately). Rough sketch is as follows
 
-\subsection{Absences and parents' cohabition status vs failures}
+\begin{center}
+\includegraphics[scale=0.3]{4}
+\end{center}
+
+\subsection{Absences, parents' habitation status vs avg. failures}
 A steam graph is apt for this visualization. The X-axis will denote absences,
-Y-axis failures and colors to distinguish between parents' cohabition status.
+Y-axis failures and colors to distinguish between parents' cohabition status. If
+feasible, we plan to provide a drop down / radio button selection of measure of
+central tendency. Rough sketch is as follows
+
+\begin{center}
+\includegraphics[scale=0.3]{5}
+\end{center}
 
 \subsection{Health vs alcohol consumption}
 A scatter plot visualization is fitting here. X-axis will denote health and
 Y-axis alcohol consumption. Colors will be used to distinguish between weekend
-and weekday consumption.
+and weekday consumption. Intensity of color will indicate population. Rough
+sketch is as follows
+
+\begin{center}
+\includegraphics[scale=0.3]{6}
+\end{center}
 
 \subsection{Study time vs failures}
 A heat map using a pairwise correlation matrix is the favourable to answer this
 question. X-axis will denoted study time, Y-axis failures and intensity of color
-the number of students in that category.
+the number of students in that category. This will look similar to 2.3.
 
 \subsection{Family size, relationships' quality vs alcohol consumption}
 A stacked bar chart will be appropriate for this question. X-axis will denote
 alcohol consumption, Y-axis quality of relationships and two different colors
 will differentiate between different family sizes. A radio button / drop down
-menu will be used to distinguish between weekend and weekday consumption.
+menu will be used to distinguish between weekend and weekday consumption. Once
+again, if feasible, we plan to provide a drop down / radio button selection of
+measure of central tendency. Rough sketch is as follows
+
+\begin{center}
+\includegraphics[scale=0.3]{8}
+\end{center}
 
 \end{document}
