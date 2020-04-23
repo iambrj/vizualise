@@ -7,22 +7,21 @@
 
 const csvUrl =
 "https://gist.githubusercontent.com/iambrj/e41d117877cbfd6c9f71286c7790a21e/raw/35e78e3916341bf3468e8293a39a171c86b4f99e/students.csv";
-
 const gradeColumns = ["G1", "G2", "G3"];
 const studyTimeColumn = "studytime";
 
 d3.csv(csvUrl, function(data) {
     // StudyTimes Range(1-4)
-    let studyTimes = [...new Set((data.map(datum => datum[studyTimeColumn]).sort()))];
+    const studyTimes = [...new Set((data.map(datum => datum[studyTimeColumn]).sort()))];
 
     // Map for grades range
-    let gradeValues = new Map(gradeColumns.map(gradeColumn => {
+    const gradeValues = new Map(gradeColumns.map(gradeColumn => {
         return [gradeColumn, [...new Set(data.map(datum => (datum[gradeColumn])))]]
         }));
 
     // Nested map for grades vs studyTimes
-    // Access pattern: gradeTimeMap[gradeColumn][gradeValue][studyTime] = population count
-    let gradeTimeMap = new Map(gradeColumns.map(gradeColumn => {
+    // Access pattern: nmap[gradeColumn][gradeValue][studyTime] = population count
+    const nmap = new Map(gradeColumns.map(gradeColumn => {
         return [gradeColumn, new Map(gradeValues.get(gradeColumn).map(gradeValue => {
             return [gradeValue, new Map(studyTimes.map(studyTime => {
                 return [studyTime, data.filter(datum => {
