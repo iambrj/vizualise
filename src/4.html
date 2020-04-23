@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<script src="https://d3js.org/d3.v4.js"></script>
+
+<script>
+
+const csvUrl =
+"https://gist.githubusercontent.com/iambrj/e41d117877cbfd6c9f71286c7790a21e/raw/35e78e3916341bf3468e8293a39a171c86b4f99e/students.csv";
+const ageColumn = "age";
+const goutColumn = "goout";
+const alcoholColumns = ["Dalc", "Walc"];
+
+d3.csv(csvUrl, function(data) {
+    const ageValues = [...new Set((data.map(datum => datum[ageColumn]).sort()))];
+    const goutValues = [...new Set((data.map(datum => datum[goutColumn]).sort()))];
+    const alcValues = new Map(alcoholColumns.map(alcoholColumn => {
+        return [alcoholColumn, [...new Set((data.map(datum => datum[alcoholColumn]).sort()))]]
+    }));
+
+    // Nested map for ages, gout, weekend/weekday vs alcohol consumption
+    // Access pattern nmap[age][gout][alcType][alcValue] = list of students
+    const nmap = new Map(ageValues.map(ageValue => {
+        return [ageValue, new Map(goutValues.map(goutValue => {
+            return [goutValue, new Map(alcoholColumns.map(alcoholColumn => {
+                return [alcoholColumn, new Map(alcValues.get(alcoholColumn).map(alcValue => {
+                    return [alcValue, data.filter(datum => {
+                        return (datum[ageColumn] == ageValue
+                            && datum[goutColumn] == goutValue
+                            && datum[alcoholColumn] == alcValue);
+                    })];
+                }))];
+            }))];
+        }))];
+    }));
+
+});
+
+</script>
