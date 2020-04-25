@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<script src="https://d3js.org/d3.v4.js"></script>
+
+<script>
+
+const csvUrl =
+"https://gist.githubusercontent.com/iambrj/e41d117877cbfd6c9f71286c7790a21e/raw/35e78e3916341bf3468e8293a39a171c86b4f99e/students.csv";
+const absencesColumn = "absences";
+const failureColumn = "failures";
+const pstatusColumn = "Pstatus";
+
+d3.csv(csvUrl, function(data) {
+    const absencesValues = [...new Set((data.map(datum => datum[absencesColumn]).sort()))];
+    const failureValues = [...new Set((data.map(datum => datum[failureColumn]).sort()))];
+    const pstatusValues = [...new Set((data.map(datum => datum[pstatusColumn]).sort()))];
+
+    // Nested map for absencesValue, pstatusValue vs alcohol consumption
+    // Access pattern nmap[absence][parents status] = list of students
+    const nmap = new Map(absencesValues.map(absencesValue => {
+        return [absencesValue, new Map(pstatusValues.map(pstatusValue => {
+            return [pstatusValue, data.filter(datum => {
+                return datum[absencesColumn] == absencesValue
+                    && datum[pstatusColumn] == pstatusValue;
+            })];
+        }))];
+    }));
+});
+
+</script>
