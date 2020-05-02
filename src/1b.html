@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Parallel Sets - Jason Davies</title>
+<title>Graph 1</title>
 <style>
 @import url(http://www.jasondavies.com/parallel-sets/d3.parsets.css);
+.dimension { cursor: ew-resize; }
+.category { cursor: ns-resize; }
+
 
 body {
   font-family: sans-serif;
@@ -78,14 +81,24 @@ pre, code { font-family: "Menlo", monospace; }
 <script src="https://www.jasondavies.com/parallel-sets/d3.parsets.js"></script>
 <script src="https://www.jasondavies.com/parallel-sets/highlight.min.js"></script>
 <script>
+
+var margin = {top: 0, right: 120, bottom: 50, left: 0},
+    width = 960 - margin.left - margin.right,
+    height = 600 - margin.top - margin.bottom;
+
 var chart = d3.parsets()
-    // .dimensions(["Survived", "Sex", "Age", "Class"]);
+    .width(height)
+    .height(width)
     .dimensions(["famsup", "Fjob", "Fedu"]);
 
 
 var vis = d3.select("#vis").append("svg")
-    .attr("width", chart.width())
-    .attr("height", chart.height());
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(0," + height + ")rotate(-90)");
+    // .attr("width", chart.width())
+    // .attr("height", chart.height());
 
 var partition = d3.layout.partition()
     .sort(null)
@@ -106,6 +119,21 @@ function curves() {
 
 d3.csv("https://gist.githubusercontent.com/iambrj/e41d117877cbfd6c9f71286c7790a21e/raw/35e78e3916341bf3468e8293a39a171c86b4f99e/students.csv", function(csv) {
   vis.datum(csv).call(chart);
+  vis.selectAll(".category text")
+      .attr("dx", 5)
+      .attr("transform", "rotate(90)");
+  vis.selectAll(".category rect")
+      .attr("y", 0);
+  vis.selectAll("text.dimension")
+      .attr("dy", "1.5em")
+      .attr("transform", "rotate(90)");
+  vis.selectAll("text.dimension .sort.alpha")
+      .attr("x", 0)
+      .attr("dx", 0)
+      .attr("dy", "1.5em");
+  vis.selectAll("text.dimension .sort.size")
+      .attr("dx", "1em");
+
 
   window.icicle = function() {
     var newIce = this.checked,
@@ -157,7 +185,11 @@ d3.csv("https://gist.githubusercontent.com/iambrj/e41d117877cbfd6c9f71286c7790a2
           .attr("transform", function(d) {
             return "translate(" + [d.source.x0 + d.source.dx / 2, d.source.dimension.y0 + d.target.dimension.y0 >> 1] + ")rotate(90)";
           })
-          .text(function(d) { return d.source.dx > 15 ? d.node.name : null; })
+          .text(function(d) { 
+            return d.source.dx > 15 ? d.node.name : null; 
+            // return d.node.name; 
+
+          })
           .style("opacity", 1e-6))
           .style("opacity", 1);
       iceTransition(vis.selectAll("g.dimension rect, g.category")
