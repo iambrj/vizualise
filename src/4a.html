@@ -6,7 +6,22 @@
     </head>
 
 </html>
+<style>
+    p {
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 2em;
+    line-height: 1em;
+    text-align: center;
+    }
+    #tes {
+        color: rgba(10,60,150, 0.8);
+    }
+</style>
 <body>
+
+    <p id="tes">Age, going out vs alcohol consumption</p>
+
 
     <!-- <div id="scatter"></div> -->
     <svg width="800" height="800"></svg>
@@ -80,7 +95,6 @@
     .attr("x", 50)
     .attr("y", 50)
     .attr("font-size", "24px")
-    .text("XYZ Foods Stock Price")
     const x_ticks = x.ticks()
             .filter(tick => Number.isInteger(tick));
    
@@ -107,7 +121,7 @@
     .attr("dy", "-5.1em")
     .attr("text-anchor", "end")
     .attr("stroke", "blue")
-    .text("Stock Price");
+    .text("Degree of going out going out");
 
     xaxis.selectAll("text").style("stroke", "blue");
 
