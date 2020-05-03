@@ -100,9 +100,20 @@
     .javascript .special {
         color: #e6550d;
     }
+    p {
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 2em;
+    line-height: 1em;
+    text-align: center;
+    }
+    #tes {
+        color: rgba(10,60,150, 0.8);
+    }
 </style>
 
 <body>
+    <p id="tes">Family support, father job, father education</p>
     <div id="mydropdown" class="dropdown-content">
         <select id="dropdw_button" autocomplete="off">
             <option value="father">Father</option>
@@ -126,9 +137,14 @@
         graph("father");
         function getOption() {
             selectElement = document.querySelector('#dropdw_button')
-            // console.log(selectElement);
             output = selectElement.value;
-            // console.log(output)
+            di = document.getElementById('tes');
+            if(output == "father"){
+                di.innerHTML = "Family support, father job, father education";
+            }
+            if(output == "mother"){
+                di.innerHTML = "Family support, mother job, mother education";
+            }
             graph(output);
         }
         function graph(output) {
