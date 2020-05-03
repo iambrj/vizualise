@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Graph 1</title>
+<link rel="stylesheet" href="1.css">
+
+<body>
+    <p id="tes">Family support, father job, father education</p>
+    <!-- Added a dropdown for the selection between father and mother -->
+    <div id="mydropdown" class="dropdown-content">
+        <select id="dropdw_button" autocomplete="off">
+            <option value="father">Father</option>
+            <option value="mother">Mother</option>
+        </select>
+        <button onclick="getOption()">
+            Submit
+        </button>
+    </div>
+   <!-- Adding div to add the chart -->
+    <div id="vis"></div>
+    <!-- Adding important javascript  -->
+    <script src='http://d3js.org/d3.v2.js'></script>
+    <script src="https://www.jasondavies.com/parallel-sets/d3.parsets.js"></script>
+    <script src="https://www.jasondavies.com/parallel-sets/highlight.min.js"></script>
+    <!-- Linking javascript code -->
+    <script src="./1.js"></script>
+</body>
+</html>

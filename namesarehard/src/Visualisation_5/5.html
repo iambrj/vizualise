@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+    p {
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 2em;
+    line-height: 1em;
+    text-align: center;
+    }
+    #tes {
+        color: rgba(10,60,150, 0.8);
+    }
+</style>
+<head>
+<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<style type="text/css">
+    svg {
+        font: 10px sans-serif;
+        shape-rendering: crispEdges;
+    }
+
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: #000;
+    }
+
+    path.domain {
+        stroke: none;
+    }
+
+    .y .tick line {
+        stroke: #ddd;
+    }
+</style>
+</head>
+<body>
+    <p id="tes">Quality of relationships & family size vs alcohol consumption</p>
+<!-- <script src="https://d3js.org/d3.v4.js"></script> -->
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<div class="graph" id="graph">
+</div>
+<script>
+
+    const csvUrl =
+        "https://gist.githubusercontent.com/iambrj/e41d117877cbfd6c9f71286c7790a21e/raw/35e78e3916341bf3468e8293a39a171c86b4f99e/students.csv";
+    // const famsizeColumn = "famsize";
+    // const famrelColumn = "famrel";
+
+    d3.csv(csvUrl, function (data) {
+        // const famrelValues = [...new Set((data.map(datum => datum[famrelColumn]).sort()))];
+        // const famsizeValues = [...new Set((data.map(datum => datum[famsizeColumn]).sort()))];
+
+        // // Nested map for famrel, famsize vs alcohol consumption
+        // // Access pattern nmap[famrel][famsize] = list of students
+        // const nmap = new Map(famrelValues.map(famrelValue => {
+        //     return [famrelValue, new Map(famsizeValues.map(famsizeValue => {
+        //         return [famsizeValue, data.filter(datum => {
+        //             return datum[famsizeColumn] == famsizeValue
+        //                 && datum[famrelColumn] == famrelValue;
+        //         })];
+        //     }))];
+        // }));
+        // I want names === quality of relation x_cod = avg dcal by small family & y_cod = avg dcal by large family
+
+        q_1_small = data.filter(function (d) {
+            return (d.famrel == "1" && d.famsize == 'LE3')
+        });
+        m_q_1_small = Math.floor(d3.mean(q_1_small, function (d) { return +(d.Walc) })).toString();
+        q_2_small = data.filter(function (d) {
+            return (d.famrel == "2" && d.famsize == 'LE3')
+        });
+        m_q_2_small = Math.floor(d3.mean(q_2_small, function (d) { return +(d.Walc) })).toString();
+        q_3_small = data.filter(function (d) {
+            return (d.famrel == "3" && d.famsize == 'LE3')
+        });
+        m_q_3_small = Math.floor(d3.mean(q_3_small, function (d) { return +(d.Walc) })).toString();
+        q_4_small = data.filter(function (d) {
+            return (d.famrel == "4" && d.famsize == 'LE3')
+        });
+        m_q_4_small = Math.floor(d3.mean(q_4_small, function (d) { return +(d.Walc) })).toString();
+        q_5_small = data.filter(function (d) {
+            return (d.famrel == "5" && d.famsize == 'LE3')
+        });
+        m_q_5_small = Math.floor(d3.mean(q_5_small, function (d) { return +(d.Walc) })).toString();
+
+        q_1_big = data.filter(function (d) {
+            return (d.famrel == "1" && d.famsize == 'GT3')
+        });
+        m_q_1_big = Math.floor(d3.mean(q_1_big, function (d) { return +(d.Walc) })).toString();
+        q_2_big = data.filter(function (d) {
+            return (d.famrel == "2" && d.famsize == 'GT3')
+        });
+        m_q_2_big = Math.floor(d3.mean(q_2_big, function (d) { return +(d.Walc) })).toString();
+        q_3_big = data.filter(function (d) {
+            return (d.famrel == "3" && d.famsize == 'GT3')
+        });
+        m_q_3_big = Math.floor(d3.mean(q_3_big, function (d) { return +(d.Walc) })).toString();
+        q_4_big = data.filter(function (d) {
+            return (d.famrel == "4" && d.famsize == 'GT3')
+        });
+        m_q_4_big = Math.floor(d3.mean(q_4_big, function (d) { return +(d.Walc) })).toString();
+        q_5_big = data.filter(function (d) {
+            return (d.famrel == "5" && d.famsize == 'GT3')
+        });
+        m_q_5_big = Math.floor(d3.mean(q_5_big, function (d) { return +(d.Walc) })).toString();
+        // arr = [];
+        // dic = {
+        //     Names: ["1", "2", "3", "4", "5"],
+        //     "x_cod": [m_q_1_small, m_q_2_small, m_q_3_small, m_q_4_small, m_q_5_small],
+        //     "y_cod": [m_q_1_big, m_q_2_big, m_q_3_big, m_q_4_big, m_q_5_big]
+        // }
+        // console.log(dic);
+            var names = ["1", "2", "3", "4", "5"];
+            var x_co = [m_q_1_small, m_q_2_small, m_q_3_small, m_q_4_small, m_q_5_small];
+            var y_co = [m_q_1_big, m_q_2_big, m_q_3_big, m_q_4_big, m_q_5_big];
+        arr = [];
+        for(i= 0; i < 5; i++){
+            dic = {
+                Names : names[i],
+                x_cod : x_co[i],
+                y_cod : y_co[i]
+            }
+            arr.push(dic);
+        }
+        
+        data = arr;
+    
+        var margin = {
+            top: 100,
+            right: 160,
+            bottom: 35,
+            left: 400
+        };
+
+        var width = 1000 - margin.left - margin.right,
+            height = 500 - margin.top - margin.bottom;
+        var tooltip = d3.select("body")
+            .append("div")
+            .style("position", "absolute")
+            .style("font-family", "'Open Sans', sans-serif")
+            .style("font-size", "14px")
+            .style("z-index", "10")
+            .style("visibility", "hidden")
+            .style('fill', 'rgb(0, 253, 190)')
+
+        var svg = d3.select("#graph")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        var dataset = d3.layout.stack()(["x_cod", "y_cod"].map(function (fruit) {
+            return data.map(function (d) {
+                return {
+                    x: d.Names,
+                    y: +d[fruit]
+                };
+            });
+        }));
+
+    
+        var x = d3.scale.ordinal()
+            .domain(dataset[0].map(function (d) {
+                return d.x;
+            }))
+            .rangeRoundBands([10, width - 10], 0.02);
+
+        var y = d3.scale.linear()
+            .domain([0, d3.max(dataset, function (d) {
+                return d3.max(d, function (d) {
+                    return d.y0 + d.y;
+                });
+            })])
+            .range([height, 0]);
+
+        var colors = ["#a9a9a9", "#4682b4"];
+
+
+        var yAxis = d3.svg.axis()
+            .scale(y)
+            .orient("left")
+            .ticks(5)
+            .tickSize(-width, 0, 0)
+            .tickFormat(function (d) {
+                return d
+            });
+
+        var xAxis = d3.svg.axis()
+            .scale(x)
+            .orient("bottom")
+            .tickSize(0);
+            
+
+        svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis)
+            .append("text")
+            .attr("x", -300)
+            .attr("y", y(y.ticks().pop()) - 200)
+            .attr("dy", "15em")
+            .attr("fill", "#000")
+
+            .attr("font-weight", "bold")
+            .attr("font-size", "12px")
+            .attr("text-anchor", "start")
+            .attr("transform", "rotate(-90)")
+            .text("Level of avg. alcohol consumption");
+
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis)
+            .append("text")
+            .attr("x", 120)
+            .attr("y", 30)
+            // .attr("dy", "15em")
+            .attr("fill", "#000")
+
+            .attr("font-weight", "bold")
+            .attr("font-size", "12px")
+            .attr("text-anchor", "start")
+            .text("Quality of relationships");
+        // xAxis.append("text")
+
+
+
+        var groups = svg.selectAll("g.cost")
+            .data(dataset)
+            .enter().append("g")
+            .attr("class", "cost")
+            .style("fill", function (d, i) {
+                return colors[i];
+            });
+
+        var rect = groups.selectAll("rect")
+            .data(function (d) {
+                return d;
+            })
+            .enter()
+            .append("rect")
+            .attr("x", function (d) {
+                return x(d.x);
+            })
+            .attr("y", function (d) {
+                return y(d.y0 + d.y);
+            })
+            .attr("height", function (d) {
+                return y(d.y0) - y(d.y0 + d.y);
+            })
+            .attr("width", x.rangeBand())
+            .on("mouseover", function (d) {
+                if (d.y0 == 0) {
+           
+                    return tooltip.style("visibility", "visible").text("Average Alcohol Consumption Level = " + (d.y - d.y0).toString(10));
+
+                }
+                else {
+                    return tooltip.style("visibility", "visible").text("Average Alcohol Consumption Level = " + (d.y).toString(10));
+
+                }
+            })
+            .on("mouseout", function () {
+                return tooltip.style("visibility", "hidden");
+            })
+            .on("mousemove", function (d) {
+                
+                if (d.y0 == 0) {
+                    return tooltip.style("top", (event.pageY - 10) + "px").style("left", (event.pageX + 10) + "px").text("Average Alcohol Consumption Level = " + (d.y - d.y0).toString(10));
+                }
+                else {
+                    return tooltip.style("top", (event.pageY - 10) + "px").style("left", (event.pageX + 10) + "px").text("Average Alcohol Consumption Level = " + (d.y).toString(10));
+
+                }
+            });
+
+
+        var legend = svg.selectAll(".legend")
+            .data(colors)
+            .enter().append("g")
+            .attr("class", "legend")
+            .attr("transform", function (d, i) {
+                return "translate(30," + i * 19 + ")";
+            });
+
+        legend.append("rect")
+            .attr("x", width - 18)
+            .attr("width", 18)
+            .attr("height", 18)
+            .style("fill", function (d, i) {
+                return colors.slice().reverse()[i];
+            });
+
+        legend.append("text")
+            .attr("x", width + 5)
+            .attr("y", 9)
+            .attr("dy", ".35em")
+            .style("text-anchor", "start")
+            .text(function (d, i) {
+                if (i == 0) {
+                    return "Having Large family"
+                } else return "Having Small family"
+
+            });
+
+    });
+
+
+
+</script>
+</body>

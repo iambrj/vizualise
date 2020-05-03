@@ -1,0 +1,28 @@
+p {
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 2em;
+    line-height: 1em;
+    text-align: center;
+    }
+#tes {
+        color: rgba(10,60,150, 0.8);
+}
+svg {
+    font: 10px sans-serif;
+    shape-rendering: crispEdges;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+}
+
+path.domain {
+    stroke: none;
+}
+
+.y .tick line {
+    stroke: #ddd;
+}

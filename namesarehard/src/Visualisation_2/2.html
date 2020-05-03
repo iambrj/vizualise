@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<head>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <!-- We have used Plotly.js to draw this chart -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="2.css">
+
+
+</head>
+<p id="heading"> Select the an option & Click on submit</p>
+<!-- Dropdown code select between options -->
+<div class="dropdown">
+    <div id="mydropdown" class="dropdown-content">
+        <select id="dropdw_button" autocomplete="off">
+            <option value="romantic">Relationship Status</option>
+            <option value="sex">Sex</option>
+            <option value="schoolsup">Extra Educational Support</option>
+            <option value="famsup">Family Educational Support</option>
+
+        </select>
+        <button onclick="getOption()">
+            Submit
+        </button>
+    </div>
+</div>
+<div id="te">
+    <p id="tes">Relationship status vs Alcohol consumption during weekdays</p>
+</div>
+<div id="myDiv" style="margin-left: 400px; width: 1000px;height: 600px;"></div>
+<script src="./2.js"></script>

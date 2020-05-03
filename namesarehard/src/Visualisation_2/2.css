@@ -1,0 +1,13 @@
+p {
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 2em;
+    line-height: 1em;
+    text-align: center;
+    }
+    #heading {
+        font-size: 1em;
+    }
+    #tes {
+        color: rgba(10,60,150, 0.8);
+    }
