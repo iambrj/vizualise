@@ -5,7 +5,24 @@
     <script src="https://d3js.org/d3.v4.js"></script>
 
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        p {
+        font-family: Helvetica, Arial, sans-serif;
+        font-weight: bold;
+        font-size: 2em;
+        line-height: 1em;
+        text-align: center;
+        }
+        #heading {
+            font-size: 1em;
+        }
+        #tes {
+            color: rgba(10,60,150, 0.8);
+        }
+
+    </style>
 </head>
+<p id="heading"> Select the an option & Click on submit</p>
 <div class="dropdown">
     <!-- <button onclick="year_selection()" class="dropdw_button">Year</button> -->
     <div id="mydropdown" class="dropdown-content">
@@ -20,13 +37,31 @@
             Submit
         </button>
     </div>
-    <div id="myDiv"></div>
+    <div id="te">
+        <p id="tes">Romantic Relational Status vs Alcohol consumption during weekdays</p>
+     
+
+    </div>
+    <div id="myDiv" style="margin-left: 400px; width: 1000px;height: 600px;"></div>
     <script>
         graph("romantic");
         function getOption() {
             selectElement = document.querySelector('#dropdw_button')
             // console.log(selectElement);
             output = selectElement.value;
+            di = document.getElementById('tes');
+            if(output == "romantic"){
+                di.innerHTML = "Romantic Relational Status vs Alcohol consumption during weekdays";
+            }
+            if(output == "sex"){
+                di.innerHTML = "Sex vs Alcohol consumption during weekdays";
+            }
+            if(output == "schoolsup"){
+                di.innerHTML = "Extra Educational Support vs Alcohol consumption during weekdays";
+            }
+            if(output == "famsup"){
+                di.innerHTML = "Family Educational Support vs Alcohol consumption during weekdays";
+            }
             // console.log(output)
             graph(output);
         }
