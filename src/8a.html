@@ -114,21 +114,21 @@
         }
         
         data = arr;
-        console.log(data);
+    
         var margin = {
-            top: 20,
+            top: 100,
             right: 160,
             bottom: 35,
-            left: 30
+            left: 400
         };
 
-        var width = 960 - margin.left - margin.right,
+        var width = 1000 - margin.left - margin.right,
             height = 500 - margin.top - margin.bottom;
         var tooltip = d3.select("body")
             .append("div")
             .style("position", "absolute")
             .style("font-family", "'Open Sans', sans-serif")
-            .style("font-size", "24px")
+            .style("font-size", "14px")
             .style("z-index", "10")
             .style("visibility", "hidden")
             .style('fill', 'rgb(0, 253, 190)')
@@ -149,8 +149,7 @@
             });
         }));
 
-        console.log("Dataset");
-        console.log(dataset);
+    
         var x = d3.scale.ordinal()
             .domain(dataset[0].map(function (d) {
                 return d.x;
@@ -185,12 +184,33 @@
 
         svg.append("g")
             .attr("class", "y axis")
-            .call(yAxis);
+            .call(yAxis)
+            .append("text")
+            .attr("x", -300)
+            .attr("y", y(y.ticks().pop()) - 200)
+            .attr("dy", "15em")
+            .attr("fill", "#000")
+
+            .attr("font-weight", "bold")
+            .attr("font-size", "12px")
+            .attr("text-anchor", "start")
+            .attr("transform", "rotate(-90)")
+            .text("Level of avg. alcohol consumption");
 
         svg.append("g")
             .attr("class", "x axis")
             .attr("transform", "translate(0," + height + ")")
-            .call(xAxis);
+            .call(xAxis)
+            .append("text")
+            .attr("x", 120)
+            .attr("y", 30)
+            // .attr("dy", "15em")
+            .attr("fill", "#000")
+
+            .attr("font-weight", "bold")
+            .attr("font-size", "12px")
+            .attr("text-anchor", "start")
+            .text("Quality of relationships");
         // xAxis.append("text")
 
 
@@ -220,13 +240,8 @@
             })
             .attr("width", x.rangeBand())
             .on("mouseover", function (d) {
-                // tooltip.style("display", this);
-                // d3.select(this).style("fill", "grey");
-                // console.log(this);
-                // console.log(d);
                 if (d.y0 == 0) {
-                    // console.log("hey I am in this conditon");
-                    // console.log(d.x + " " + d.y + " " + d.y0);
+           
                     return tooltip.style("visibility", "visible").text("Average Alcohol Consumption Level = " + (d.y - d.y0).toString(10));
 
                 }
@@ -239,7 +254,7 @@
                 return tooltip.style("visibility", "hidden");
             })
             .on("mousemove", function (d) {
-                // console.log(event);
+                
                 if (d.y0 == 0) {
                     return tooltip.style("top", (event.pageY - 10) + "px").style("left", (event.pageX + 10) + "px").text("Average Alcohol Consumption Level = " + (d.y - d.y0).toString(10));
                 }
